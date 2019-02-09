@@ -1,0 +1,29 @@
+# git
+.git
+.gitignore
+.gitattributes
+
+# documentation
+MIT.LICENSE
+README.md
+RELEASE.md
+
+# docker-compose
+docker-compose.yml
+docker-compose.dev.yml
+docker-compose.stack.yml
+docker-compose.test.yml
+.env
+
+# misc
+dockery/
+test/
+
+# data
+data/cameras
+data/dbc/
+data/gt
+data/maps/
+data/mmaps/
+data/vmaps/
+data/sql
