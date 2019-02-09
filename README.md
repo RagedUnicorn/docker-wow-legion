@@ -6,6 +6,8 @@ This image is intended to build a base for running a WoW Legion Server based on 
 
 Its intent is to provide a WoW Server for experimenting and developing WoW Addons.
 
+![](/doc/legion_logo.png)
+
 ## Using the image
 
 #### Start container
