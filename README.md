@@ -123,6 +123,26 @@ sh dockery/dstop.sh
 
 ## Configuration
 
+### bnetserver.conf
+
+Configuration for realm is located in config/bnetserver.conf.tpl and copied into the image opt/legion/etc
+
+### worldserver.conf
+
+Configuration for world server is located in config/worldserver.conf.tpl and copied into the image opt/legion/etc
+
+During the startup of the server the templates are rendered and the final configuration is created. This step is repeated each time the docker-entrypoint.sh script is executed. It is important that all modifications are done in the templates itself and not the generated configuration. Those will be overwritten.
+
+Using this information configuration files can be overwritten by mounting different ones into the container. Again it is important that the template files are being used otherwise the configuration will be overwritten after each restart of the container.
+
+In this example the same configurations that are copied into the image are mounted when using docker-compose. In most cases it makes more sense to have a separate configuration somewhere. This makes it easy having different configurations for different servers.
+
+```
+volumes:
+  - ${PWD}/config/bnetserver.conf.tpl:/opt/legion/etc/bnetserver.conf.tpl
+  - ${PWD}/config/worldserver.conf.tpl:/opt/legion/etc/worldserver.conf.tpl
+```
+
 ## Development
 
 To debug the container and get more insight into the container use the `docker-compose.dev.yml`
