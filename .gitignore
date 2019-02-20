@@ -35,3 +35,4 @@ data/sql/*
 data/vmaps/*
 data/server/*
 !server.tar.gz.*
+!sql.tar.gz
