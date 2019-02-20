@@ -30,7 +30,8 @@ ENV \
   LIB_READLINE_VERSION=7.0-3 \
   LIBBOOST_ALL_DEV_VERSION=1.65.1.0ubuntu1 \
   LIBNCURSES5_DEV_VERSION=6.1-1ubuntu1.18.04 \
-  NANO_VERSION=2.9.3-2
+  NANO_VERSION=2.9.3-2 \
+  NETCAT_VERSION=1.10-41.1 \
 
 # image args
 ARG WOW_USER=wow
@@ -102,7 +103,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   libssl-dev="${LIBSSL_DEV_VERSION}" \
   libbz2-dev="${LIBBZ_2_DEV_VERSION}" \
   libreadline-dev="${LIB_READLINE_VERSION}" \
-  # libncurses-dev \
+  netcat="${NETCAT_VERSION}" \
   libncurses5-dev="${LIBNCURSES5_DEV_VERSION}" \
   libboost-all-dev="${LIBBOOST_ALL_DEV_VERSION}" && \
   update-alternatives --install /usr/bin/cc cc /usr/bin/clang 100 && \
@@ -129,7 +130,7 @@ RUN \
   make && \
   make install
 
-COPY config/bnetserver.conf config/worldserver.conf "${WOW_INSTALL}/etc/"
+COPY config/bnetserver.conf.tpl config/worldserver.conf.tpl "${WOW_INSTALL}/etc/"
 
 WORKDIR /
 

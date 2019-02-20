@@ -73,7 +73,7 @@ RealmID = 1
 #        Example:     "@prefix@/share/trinitycore"
 #        Default:     "."
 
-DataDir = "."
+DataDir = "/opt/legion/data"
 
 #
 #    LogsDir
@@ -107,10 +107,10 @@ LogsDir = ""
 #    Don't open port on firewall to external connections (it belongs to mysql, not to wow server).
 #    The username you choose must have permisions to create/alter/rename tables.
 
-LoginDatabaseInfo     = "127.0.0.1;3306;trinity;trinity;auth"
-WorldDatabaseInfo     = "127.0.0.1;3306;trinity;trinity;world"
-CharacterDatabaseInfo = "127.0.0.1;3306;trinity;trinity;characters"
-HotfixDatabaseInfo    = "127.0.0.1;3306;trinity;trinity;hotfixes"
+LoginDatabaseInfo     = "${database_hostname};3306;${wow_database_user};${wow_database_user_password};auth"
+WorldDatabaseInfo     = "${database_hostname};3306;${wow_database_user};${wow_database_user_password};world"
+CharacterDatabaseInfo = "${database_hostname};3306;${wow_database_user};${wow_database_user_password};characters"
+HotfixDatabaseInfo    = "${database_hostname};3306;${wow_database_user};${wow_database_user_password};hotfixes"
 
 #
 #    LoginDatabase.WorkerThreads

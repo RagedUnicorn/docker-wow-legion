@@ -1,6 +1,6 @@
 #!/bin/bash
 # @author Michael Wiesendanger <michael.wiesendanger@gmail.com>
-# @description launch script for wow_vanilla_server
+# @description launch script for wow_legion_server
 
 set -euo pipefail
 
@@ -38,8 +38,7 @@ function prepare_database {
   echo "$(date) [INFO]: Launching initial database setup ..."
   echo "$(date) [INFO]: Creating databases"
   # create databases
-  # mysql -u"${mysql_app_user}" -p"${mysql_app_password}" -h "${database_hostname}" < "${WOW_HOME}/init.sql"
-  mysql -uapp -papp -h wow-legion-database < /opt/legion/data/server/sql/create/create_mysql.sql
+  mysql -u"${mysql_app_user}" -p"${mysql_app_password}" -h "${database_hostname}" < "${WOW_INSTALL}"/data/server/sql/create/create_mysql.sql
   echo "$(date) [INFO]: Setup characters database"
 
   # copy sql files to binary location - they will be automatically applied on startup
@@ -48,7 +47,7 @@ function prepare_database {
   echo "$(date) [INFO]: Database setup done"
 }
 
-# if one of the database is missing we assume a fresh setup
+# if one of the databases is missing we assume a fresh setup
 function check_database_setup {
   databases=("world" "characters" "auth" "hotfixes")
 
@@ -77,26 +76,25 @@ function setup_configuration {
     -e "s/\${wow_database_user}/${mysql_app_user}/" \
     -e "s/\${wow_database_user_password}/${mysql_app_password}/" \
     -e "s/\${database_hostname}/${database_hostname}/" \
-    "${WOW_INSTALL}/etc/mangosd.conf.tpl" | tee "${WOW_INSTALL}/etc/mangosd.conf"
+    "${WOW_INSTALL}/etc/worldserver.conf.tpl" | tee "${WOW_INSTALL}/etc/worldserver.conf"
 
   sed \
     -e "s/\${wow_database_user}/${mysql_app_user}/" \
     -e "s/\${wow_database_user_password}/${mysql_app_password}/" \
     -e "s/\${database_hostname}/${database_hostname}/" \
-    "${WOW_INSTALL}/etc/realmd.conf.tpl" | tee "${WOW_INSTALL}/etc/realmd.conf"
+    "${WOW_INSTALL}/etc/bnetserver.conf.tpl" | tee "${WOW_INSTALL}/etc/bnetserver.conf"
 
-  echo "$(date) [INFO]: Finished setup for realmd and mangosd"
+  echo "$(date) [INFO]: Finished setup for worldserver and bnetserver"
 }
 
 function launch_server {
-  # TODO
-  echo "$(date) - Launching realmd"
+  echo "$(date) - Launching bnetserver"
   # start realm in background
   cd "${WOW_INSTALL}"/bin
-  exec gosu "${WOW_USER}" ./realmd &
-  echo "$(date) - Launching mangosd"
+  exec gosu "${WOW_USER}" ./bnetserver &
+  echo "$(date) - Launching worldserver"
   # start world in foreground preventing docker container from exiting
-  exec gosu "${WOW_USER}" ./mangosd
+  exec gosu "${WOW_USER}" ./worldserver
 }
 
 function init {
@@ -104,7 +102,7 @@ function init {
   create_log_dir
   check_mysql_status
   check_database_setup
-  # launch_server
+  launch_server
 }
 
 init

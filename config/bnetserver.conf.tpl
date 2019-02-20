@@ -213,7 +213,7 @@ MySQLExecutable = ""
 #                                                                           Unix/Linux)
 #        Default:     "127.0.0.1;3306;trinity;trinity;auth"
 
-LoginDatabaseInfo = "127.0.0.1;3306;trinity;trinity;auth"
+LoginDatabaseInfo = "${database_hostname};3306;${wow_database_user};${wow_database_user_password};auth"
 
 #
 #    LoginDatabase.WorkerThreads

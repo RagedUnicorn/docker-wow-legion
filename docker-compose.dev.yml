@@ -19,7 +19,7 @@ services:
       com.ragedunicorn.mysql.description: "MySQL"
   wow-legion-server:
     build: .
-    image: ragedunicorn/wow-legion:1.0.3-stable-dev
+    image: ragedunicorn/wow-legion:${WOW_LEGION_TAG_VERSION}-stable-dev
     environment:
       - MYSQL_APP_USER=app
       - MYSQL_APP_PASSWORD=app
@@ -32,6 +32,8 @@ services:
       - "8081:8081"
       - "8085:8085"
       - "8086:8086"
+    depends_on:
+      - wow-legion-database
     stdin_open: true
     tty: true
     entrypoint: /bin/bash
@@ -41,4 +43,3 @@ services:
 volumes:
   wow_legion_mysql_data: {}
   wow_legion_log_data: {}
-  data: {}
