@@ -41,8 +41,8 @@ function prepare_database {
   mysql -u"${mysql_app_user}" -p"${mysql_app_password}" -h "${database_hostname}" < "${WOW_INSTALL}"/data/server/sql/create/create_mysql.sql
   echo "$(date) [INFO]: Setup characters database"
 
-  # copy sql files to binary location - they will be automatically applied on startup
-  cp "${WOW_INSTALL}"/data/sql/*.sql "${WOW_INSTALL}/bin"
+  # move sql files to binary location - they will be automatically applied on startup
+  mv "${WOW_INSTALL}"/data/sql/*.sql "${WOW_INSTALL}/bin"
 
   echo "$(date) [INFO]: Database setup done"
 }
