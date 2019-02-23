@@ -152,16 +152,7 @@ configuration.
 docker-compose -f docker-compose.dev.yml up -d
 ```
 
-TODO rework text
-
-
-
-
-
-
-
-
-By default the launchscript `/docker-entrypoint.sh` will not be used to start the `realmd` and `mangosd` processes. Instead the container will be setup to keep `stdin_open` open and allocating a pseudo `tty`. This allows for connecting to a shell and work on the container. A shell can be opened inside the container with `docker attach [container-id]`. The server itself can be started with `./docker-entrypoint.sh`. Note that this has to be done for the database container first otherwise both `realmd` and `mangosd` will not be able to connect to the database.
+By default the launchscript `/docker-entrypoint.sh` will not be used to start the `worldserver` and `bnetserver` processes. Instead the container will be setup to keep `stdin_open` open and allocating a pseudo `tty`. This allows for connecting to a shell and work on the container. A shell can be opened inside the container with `docker attach [container-id]`. The server itself can be started with `./docker-entrypoint.sh`. Note that this has to be done for the database container first otherwise both `worldserver` and `bnetserver` will not be able to connect to the database.
 
 ### Generating Server Files (optional)
 
