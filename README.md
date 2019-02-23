@@ -257,6 +257,27 @@ The same tests are also available for the development image.
 docker-compose -f docker-compose.test.yml up container-dev-test-metadata
 ```
 
+## Know Issues
+
+#### Make Fails to Link
+
+If make is successful in building the server but fails at the linker step it is highly likely that you encountered a not enoug virtual memory error.
+
+Adding NVERVOSE=1 to the make command can give you more information about the exact error. Usually in this case the error will be 254
+
+```
+RUN \
+  cmake ../ -DCMAKE_INSTALL_PREFIX="${WOW_INSTALL}" -DTOOLS="${DTOOLS}" && \
+  make NVERBOSE=1 && \
+  make install
+```
+
+Restarting docker or even the whole machine/server can help circumvent this issue.
+
+#### Data Folder is Empty Inside Running Container
+
+If the data folder inside the running container is empty even though the client data is place correctly there might be an issue with sharing the folder itself. For Windows see [Volume-Sharing](./doc/VOLUME_SHARING.md) for an example on how volumes can be shared if this is blocked by a Firewall.
+
 ## Links
 
 Ubuntu packages database
