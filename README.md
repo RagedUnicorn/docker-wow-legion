@@ -207,13 +207,28 @@ mkdir vmaps
 
 *Note:* This will take a long time to generate
 
-#### Package the Resources
+#### Add the Generated Data to the Docker Image
 
 Extract the data from the image with `docker cp`
 
 `docker cp <containerId>:/[data-file] [host-path]`
 
 The relevant folders that need to be save are `cameras`, `dbc`, `gt`, `maps`, `mmaps` and `vmaps`.
+
+The data has to be placed inside the data folder in the following way
+
+```
+data/dbc
+data/maps
+data/mmaps
+data/vmaps
+data/cameras
+data/gt
+```
+
+All resources will be added as a local docker volume to the container once its up and running.
+
+**Note:** The image expects the data to be fully unpacked. If you packaged your resources in any way make sure to unpack them.
 
 #### Source
 
