@@ -26,11 +26,11 @@ fileExistenceTests:
   shouldExist: true
   permissions: '-rwxr-xr-x'
 - name: 'wow_realmd_binary'
-  path: '/opt/vanilla/bin/bnetserver'
+  path: '/opt/legion/bin/bnetserver'
   shouldExist: true
   permissions: '-rwxr-xr-x'
 - name: 'wow_mangosd_binary'
-  path: '/opt/vanilla/bin/worldserver'
+  path: '/opt/legion/bin/worldserver'
   shouldExist: true
   permissions: '-rwxr-xr-x'
 - name: 'sql_data'
