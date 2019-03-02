@@ -38,11 +38,11 @@ function prepare_database {
   echo "$(date) [INFO]: Launching initial database setup ..."
   echo "$(date) [INFO]: Creating databases"
   # create databases
-  mysql -u"${mysql_app_user}" -p"${mysql_app_password}" -h "${database_hostname}" < "${WOW_INSTALL}"/data/server/sql/create/create_mysql.sql
+  mysql -u"${mysql_app_user}" -p"${mysql_app_password}" -h "${database_hostname}" < "${WOW_HOME}"/server/sql/create/create_mysql.sql
   echo "$(date) [INFO]: Setup characters database"
 
   # move sql files to binary location - they will be automatically applied on startup
-  mv "${WOW_INSTALL}"/data/sql/*.sql "${WOW_INSTALL}/bin"
+  mv "${WOW_HOME}"/*.sql "${WOW_INSTALL}/bin"
 
   echo "$(date) [INFO]: Database setup done"
 }

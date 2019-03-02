@@ -34,5 +34,5 @@ fileExistenceTests:
   shouldExist: true
   permissions: '-rwxr-xr-x'
 - name: 'sql_data'
-  path: '/opt/legion/data.tar.gz'
+  path: '/home/wow/sql.tar.gz'
   shouldExist: false

@@ -130,12 +130,12 @@ RUN \
   make && \
   make install
 
-COPY data/sql/sql.tar.gz "${WOW_INSTALL}"/data/
+COPY data/sql/sql.tar.gz "${WOW_HOME}"/
 
 RUN \
   set -ex && \
-  tar xvzf "${WOW_INSTALL}"/data/sql.tar.gz && \
-  rm -rf "${WOW_INSTALL}"/data/sql.tar.gz
+  tar xvzf "${WOW_HOME}"/sql.tar.gz -C "${WOW_HOME}" && \
+  rm -rf "${WOW_HOME}"/sql.tar.gz
 
 COPY config/bnetserver.conf.tpl config/worldserver.conf.tpl "${WOW_INSTALL}/etc/"
 
