@@ -20,7 +20,7 @@ services:
       com.ragedunicorn.mysql.description: "MySQL"
   wow-legion-server:
     build: .
-    image: ragedunicorn/wow-legion:${WOW_LEGION_TAG_VERSION}-dev
+    image: ragedunicorn/wow-legion:${WOW_LEGION_TAG_VERSION}-stable
     environment:
       - MYSQL_APP_USER=app
       - MYSQL_APP_PASSWORD=app
