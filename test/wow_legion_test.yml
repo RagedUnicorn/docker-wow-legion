@@ -1,0 +1,38 @@
+schemaVersion: 2.0.0
+
+fileExistenceTests:
+- name: 'docker_entrypoint'
+  path: '/docker-entrypoint.sh'
+  shouldExist: true
+  permissions: '-rwxr-xr-x'
+- name: 'docker_healthcheck'
+  path: '/docker-healthcheck.sh'
+  shouldExist: true
+  permissions: '-rwxr-xr-x'
+- name: 'wow_bin'
+  path: '/opt/legion/bin'
+  shouldExist: true
+  permissions: 'drwxr-xr-x'
+- name: 'wow_etc'
+  path: '/opt/legion/etc'
+  shouldExist: true
+  permissions: 'drwxr-xr-x'
+- name: 'wow_bnetserver_conf'
+  path: '/opt/legion/etc/bnetserver.conf.tpl'
+  shouldExist: true
+  permissions: '-rwxr-xr-x'
+- name: 'wow_worldserver_conf'
+  path: '/opt/legion/etc/worldserver.conf.tpl'
+  shouldExist: true
+  permissions: '-rwxr-xr-x'
+- name: 'wow_realmd_binary'
+  path: '/opt/vanilla/bin/bnetserver'
+  shouldExist: true
+  permissions: '-rwxr-xr-x'
+- name: 'wow_mangosd_binary'
+  path: '/opt/vanilla/bin/worldserver'
+  shouldExist: true
+  permissions: '-rwxr-xr-x'
+- name: 'sql_data'
+  path: '/opt/legion/data.tar.gz'
+  shouldExist: false
