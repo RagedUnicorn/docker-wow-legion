@@ -26,6 +26,8 @@ services:
       - DATABASE_HOSTNAME=wow-legion-database
     volumes:
       - wow_legion_log_data:/var/log/wow
+      - ./config/bnetserver.conf.tpl:/opt/vanilla/etc/bnetserver.conf.tpl
+      - ./config/worldserver.conf.tpl:/opt/vanilla/etc/worldserver.conf.tpl
       - ./data:/opt/legion/data
     ports:
       - "1119:1119"
