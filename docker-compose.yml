@@ -1,0 +1,53 @@
+version: '3.6'
+services:
+  wow-legion-database:
+    image: ragedunicorn/mysql:${MYSQL_TAG_VERSION}-stable
+    environment:
+      - MYSQL_APP_USER=app
+      - MYSQL_APP_PASSWORD=app
+    volumes:
+      - wow_legion_mysql_data:/var/lib/mysql
+    expose:
+        - "3306"
+    healthcheck:
+      test: ["CMD", "/docker-healthcheck.sh"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
+    labels:
+      com.ragedunicorn.mysql.environment: "prod"
+      com.ragedunicorn.mysql.description: "MySQL"
+  wow-legion-server:
+    build: .
+    image: ragedunicorn/wow-legion:${WOW_LEGION_TAG_VERSION}-dev
+    environment:
+      - MYSQL_APP_USER=app
+      - MYSQL_APP_PASSWORD=app
+      - DATABASE_HOSTNAME=wow-legion-database
+    volumes:
+      - wow_legion_log_data:/var/log/wow
+      - ./config/bnetserver.conf.tpl:/opt/vanilla/etc/bnetserver.conf.tpl
+      - ./config/worldserver.conf.tpl:/opt/vanilla/etc/worldserver.conf.tpl
+      - ./data:/opt/legion/data
+    ports:
+      - "1119:1119"
+      - "8081:8081"
+      - "8085:8085"
+      - "8086:8086"
+    depends_on:
+      - wow-legion-database
+    stdin_open: true
+    tty: true
+    healthcheck:
+      test: ["CMD", "/docker-healthcheck.sh"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 1m
+    labels:
+      com.ragedunicorn.wow-legion.environment: "prod"
+      com.ragedunicorn.wow-legion.description: "World of Warcraft Legion Server"
+volumes:
+  wow_legion_mysql_data: {}
+  wow_legion_log_data: {}
