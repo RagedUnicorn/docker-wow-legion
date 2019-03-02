@@ -31,7 +31,12 @@ services:
       - wow_legion_log_data:/var/log/wow
       - ./config/bnetserver.conf.tpl:/opt/vanilla/etc/bnetserver.conf.tpl
       - ./config/worldserver.conf.tpl:/opt/vanilla/etc/worldserver.conf.tpl
-      - ./data:/opt/legion/data
+      - ./data/cameras:/opt/legion/data/cameras
+      - ./data/dbc:/opt/legion/data/dbc
+      - ./data/gt:/opt/legion/data/gt
+      - ./data/maps:/opt/legion/data/maps
+      - ./data/mmaps:/opt/legion/data/mmaps
+      - ./data/vmaps:/opt/legion/data/vmaps
     ports:
       - "1119:1119"
       - "8081:8081"
