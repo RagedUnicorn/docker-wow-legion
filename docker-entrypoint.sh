@@ -44,6 +44,16 @@ function prepare_database {
   # move sql files to binary location - they will be automatically applied on startup
   mv "${WOW_HOME}"/*.sql "${WOW_INSTALL}/bin"
 
+  # init realm
+  public_ip="${PUBLIC_IP:?Missing environment variable PUBLIC_IP}"
+
+  echo "$(date) [INFO]: Update configured realm"
+  sed \
+    -e "s/\${public_ip}/${public_ip}/" \
+    "${WOW_INSTALL}/etc/init_realm.tpl" | tee "${WOW_HOME}/init_realm.sql"
+
+  mysql -u"${mysql_app_user}" -p"${mysql_app_password}" -h "${database_hostname}" auth < "${WOW_HOME}/init_realm.sql"
+
   echo "$(date) [INFO]: Database setup done"
 }
 

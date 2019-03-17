@@ -137,7 +137,7 @@ RUN \
   tar xvzf "${WOW_HOME}"/sql.tar.gz -C "${WOW_HOME}" && \
   rm -rf "${WOW_HOME}"/sql.tar.gz
 
-COPY config/bnetserver.conf.tpl config/worldserver.conf.tpl "${WOW_INSTALL}/etc/"
+COPY config/bnetserver.conf.tpl config/worldserver.conf.tpl config/init_realm.tpl "${WOW_INSTALL}/etc/"
 
 WORKDIR /
 
