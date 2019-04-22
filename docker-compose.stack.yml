@@ -21,7 +21,7 @@ services:
       com.ragedunicorn.mysql.environment: "prod"
       com.ragedunicorn.mysql.description: "MySQL"
   wow-legion-server:
-    image: ragedunicorn/wow-legion:1.0.3-dev
+    image: ragedunicorn/wow-legion:1.0.3-stable
     secrets:
       - com.ragedunicorn.mysql.app_user
       - com.ragedunicorn.mysql.app_user_password
