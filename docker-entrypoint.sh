@@ -93,6 +93,7 @@ function setup_configuration {
     -e "s/\${wow_database_user}/${mysql_app_user}/" \
     -e "s/\${wow_database_user_password}/${mysql_app_password}/" \
     -e "s/\${database_hostname}/${database_hostname}/" \
+    -e "s/\${public_ip}/${public_ip}/" \
     "${WOW_INSTALL}/etc/bnetserver.conf.tpl" | tee "${WOW_INSTALL}/etc/bnetserver.conf"
 
   echo "$(date) [INFO]: Finished setup for worldserver and bnetserver"

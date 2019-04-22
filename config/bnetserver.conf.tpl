@@ -74,7 +74,7 @@ BattlenetPort = 1119
 #
 
 LoginREST.Port = 8081
-LoginREST.ExternalAddress=127.0.0.1
+LoginREST.ExternalAddress=${public_ip}
 LoginREST.LocalAddress=127.0.0.1
 LoginREST.TicketDuration=3600
 
