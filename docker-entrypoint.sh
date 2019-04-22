@@ -49,6 +49,7 @@ function prepare_database {
 
   echo "$(date) [INFO]: Update configured realm"
   sed \
+    -e "s/\${realm_name}/${realm_name}/" \
     -e "s/\${public_ip}/${public_ip}/" \
     "${WOW_INSTALL}/etc/init_realm.tpl" | tee "${WOW_HOME}/init_realm.sql"
 
