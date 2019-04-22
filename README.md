@@ -276,7 +276,19 @@ Restarting docker or even the whole machine/server can help circumvent this issu
 
 #### Data Folder is Empty Inside Running Container
 
-If the data folder inside the running container is empty even though the client data is place correctly there might be an issue with sharing the folder itself. For Windows see [Volume-Sharing](./doc/VOLUME_SHARING.md) for an example on how volumes can be shared if this is blocked by a Firewall.
+If the data folder inside the running container is empty even though the client data is placed correctly there might be an issue with sharing the folder itself. For Windows see [Volume-Sharing](./doc/VOLUME_SHARING.md) for an example on how volumes can be shared if this is blocked by a Firewall.
+
+#### I cannot Connect to the Server
+
+There are a lot of reasons why the connection to the server might not work.
+
+###### Localhost vs 127.0.0.1
+
+When updating the configuration inside `WTF\Config.wtf` make sure to use an actual ip address and not localhost for the `portal` entry.
+
+```
+SET portal "127.0.0.1"
+```
 
 ## Links
 
