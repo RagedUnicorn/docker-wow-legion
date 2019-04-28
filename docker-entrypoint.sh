@@ -10,6 +10,7 @@ WD="${PWD}"
 mysql_app_user="/run/secrets/com.ragedunicorn.mysql.app_user"
 mysql_app_password="/run/secrets/com.ragedunicorn.mysql.app_user_password"
 database_hostname="${DATABASE_HOSTNAME:?localhost}"
+public_ip="${PUBLIC_IP:?Missing environment variable PUBLIC_IP}"
 database_port="3306"
 
 function check_mysql_status {
@@ -41,19 +42,19 @@ function prepare_database {
   mysql -u"${mysql_app_user}" -p"${mysql_app_password}" -h "${database_hostname}" < "${WOW_HOME}"/server/sql/create/create_mysql.sql
   echo "$(date) [INFO]: Setup characters database"
 
-  # move sql files to binary location - they will be automatically applied on startup
-  mv "${WOW_HOME}"/*.sql "${WOW_INSTALL}/bin"
+  echo "$(date) [INFO]: Prepare configured realm"
 
   # init realm
-  public_ip="${PUBLIC_IP:?Missing environment variable PUBLIC_IP}"
+  realm_name="${REALM_NAME:?Missing environment variable REALM_NAME}"
 
-  echo "$(date) [INFO]: Update configured realm"
+  # Update default auth_database sql that is used to create the initial realm during first startup
   sed \
     -e "s/\${realm_name}/${realm_name}/" \
     -e "s/\${public_ip}/${public_ip}/" \
-    "${WOW_INSTALL}/etc/init_realm.tpl" | tee "${WOW_HOME}/init_realm.sql"
+    "${WOW_HOME}/server/sql/base/auth_database.sql.tpl" | tee "${WOW_HOME}/server/sql/base/auth_database.sql"
 
-  mysql -u"${mysql_app_user}" -p"${mysql_app_password}" -h "${database_hostname}" auth < "${WOW_HOME}/init_realm.sql"
+  # copy sql files to binary location - they will be automatically applied on startup
+  cp "${WOW_HOME}"/*.sql "${WOW_INSTALL}/bin"
 
   echo "$(date) [INFO]: Database setup done"
 }
