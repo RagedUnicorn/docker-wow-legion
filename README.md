@@ -278,17 +278,50 @@ Restarting docker or even the whole machine/server can help circumvent this issu
 
 If the data folder inside the running container is empty even though the client data is placed correctly there might be an issue with sharing the folder itself. For Windows see [Volume-Sharing](./doc/VOLUME_SHARING.md) for an example on how volumes can be shared if this is blocked by a Firewall.
 
-#### I cannot Connect to the Server
+#### Can't Connect to the Server
 
 There are a lot of reasons why the connection to the server might not work.
 
 ###### Localhost vs 127.0.0.1
 
-When updating the configuration inside `WTF\Config.wtf` make sure to use an actual ip address and not localhost for the `portal` entry.
+When updating the configuration inside `WTF\Config.wtf` make sure to use an actual ip-address and not localhost for the `portal` entry.
 
 ```
 SET portal "127.0.0.1"
 ```
+
+###### Check bnetserver.conf
+
+Verify that bnetserver.conf has the correct ip-address configured as external access.
+
+```
+cat /opt/legion/etc/bnetserver.conf | more
+```
+
+Search for `LoginREST.ExternalAddress` and check if this matches the expected value. If not make sure to update the template file(`bnetserver.conf.tpl`) and not the actual configuration then restart the server. During the startup the configuration will be recreated and thus overwrite any changes made to that file.
+
+###### Check realmlist
+
+Verify that the realmlist table is configured properly.
+
+```
+# connect to mysql from within the wow container
+mysql -uapp -p -hwow-legion-database
+
+mysql> USE auth;
+mysql> SELECT * FROM realmlist;
+```
+
+The entry for the `ragedunicorn` realm should have the same ip-adress configured as the entry in `bnetserver.conf`
+
+**Note:** The server is initialized based on the following file:
+
+```
+/home/wow/server/sql/base/auth_database.sql.tpl
+```
+
+Both `${realm_name}` and `${public_ip}` are replaced with actual values.
+
 
 ## Links
 
